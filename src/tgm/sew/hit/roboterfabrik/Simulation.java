@@ -10,7 +10,6 @@ public class Simulation {
 
     /**
      * Wird beim starten aufgerufen
-     * 
      * @param args die Command-line Argumente
      */
     public static void main(String[] args) {

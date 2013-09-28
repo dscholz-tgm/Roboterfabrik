@@ -1,13 +1,11 @@
 package tgm.sew.hit.roboterfabrik;
 
-import java.util.ArrayList;
-
 /**
  * Stellt einen MontageMitarbeiter dar, welcher sich
  * um den Zusammenbau der Threadees kümmert
  * 
  * @author Dominik
- * @version 0.1
+ * @version 0.2
  */
 public class MontageMitarbeiter implements Stoppable {
     
@@ -15,12 +13,7 @@ public class MontageMitarbeiter implements Stoppable {
     private Fabrik fabrik;
     private boolean stop = false;
     
-    private ArrayList<Integer> augeR;
-    private ArrayList<Integer> augeL;
-    private ArrayList<Integer> rumpf;
-    private ArrayList<Integer> kettenAntrieb;
-    private ArrayList<Integer> armR;
-    private ArrayList<Integer> armL;
+    private Threadee threadee;
     
     /**
      * Konstruktor des MontageMitarbeiters

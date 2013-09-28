@@ -20,7 +20,7 @@ public class Teil {
      * @param typ der Typ des Teils
      * @param zahlen die Zahlen zum zusammenbauen des Teils
      */
-    public Teil(TeilType typ,List<Integer> zahlen) {
+    public Teil(TeilType type,List<Integer> zahlen) {
         this.type = type;
         this.zahlen = zahlen;
     }
