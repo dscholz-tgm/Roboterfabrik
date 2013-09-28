@@ -5,6 +5,7 @@ package tgm.sew.hit.roboterfabrik;
  * für die Threadees und Mitarbeiter bereitstellt
  * 
  * @author Dominik
+ * @version 0.1
  */
 public class Sekretariat {
     
