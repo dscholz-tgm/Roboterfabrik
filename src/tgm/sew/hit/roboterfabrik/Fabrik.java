@@ -1,5 +1,8 @@
 package tgm.sew.hit.roboterfabrik;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Erstellt die Threads und stellt die Verbindung zwischen ihnen dar
  * 
@@ -7,5 +10,43 @@ package tgm.sew.hit.roboterfabrik;
  * @version 0.1
  */
 public class Fabrik {
+    
+    private int montageMitarbeiterPoolSize;
+    private int lieferantenPoolSize;
+    private int time;
+    private Sekretariat sekretariat;
+    
+    /**
+     * Erstellt die Fabrik
+     * 
+     * @param montageMitarbeiterPoolSize Wie viele Montage Mitarbeiter erstellt werden sollen
+     * @param lieferantenPoolSize Wie viele Lieferanten erstellt werden sollen
+     * @param time Wie lange das Programm laufen soll
+     */
+    public Fabrik(int montageMitarbeiterPoolSize, int lieferantenPoolSize, int time) {
+        this.montageMitarbeiterPoolSize = montageMitarbeiterPoolSize;
+        this.lieferantenPoolSize = lieferantenPoolSize;
+        this.time = time;
+        sekretariat = new Sekretariat();
+    }
+    
+    /**
+     * Gibt das Sekretariat zurück
+     * @return das Sekretariat
+     */
+    public Sekretariat getSekretariat() {
+        return sekretariat;
+    }
+
+    /**
+     * Gibt ein Teil, welches in der fehlendenTeile Liste enthalten ist zurück
+     * @param fehlendeTeile eine Liste von TeilTypen von denen ein Teil zurückgegeben werden soll
+     * @return einer der benötigten Teile
+     */
+    public Teil getTeil(List<TeilType> fehlendeTeile) {
+        //Mit Lager Mitarbeiter Teil suchen
+        
+        return new Teil(TeilType.ARM,Arrays.asList(1,2,3));
+    }
     
 }

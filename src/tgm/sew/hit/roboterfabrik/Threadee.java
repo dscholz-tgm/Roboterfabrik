@@ -7,11 +7,12 @@ import java.util.List;
  * Stellt einen Threadee dar
  * 
  * @author Dominik
- * @version 0.1
+ * @version 0.2
  */
 public class Threadee {
     
-    private List<Teil> teilliste = new ArrayList<>();
+    private List<Teil> teilListe = new ArrayList<>();
+    private List<TeilType> fehlendeTeile = new ArrayList<>();
     private int id;
     
     /**
@@ -20,20 +21,21 @@ public class Threadee {
      */
     public Threadee(int id) {
         this.id = id;
+        for (TeilType tt : TeilType.values()) {
+            for (int i = 0; i < tt.getAmount(); i++) fehlendeTeile.add(tt);
+        }
     }
     
     /**
      * Fügt ein Teil hinzu
-     * @return das Teil welches hinzugefügt wurde
-     * @exception wenn das Teil schon oft genug im Threadee eingebaut ist
+     * @return ob das Teil erfolgreich hinzugefügt wurde
      */
-    public Teil addTeil(Teil teil) throws HatGenugTeileException {
-        TeilType tt = teil.getType();
-        int amount = tt.getAmount();
-        for (Teil t : teilliste) if (t.getType() == tt) amount--;
-        if (amount < 1) throw new HatGenugTeileException();
-        teilliste.add(teil);
-        return teil;
+    public boolean addTeil(Teil teil) {
+        if (fehlendeTeile.remove(teil.getType())) {
+            teilListe.add(teil);
+            return true;
+        }
+        return false;
     }
     
     /**
@@ -41,13 +43,6 @@ public class Threadee {
      * @return Eine Liste von Teilen die dem Threadee noch fehlen
      */
     public List<TeilType> fehlendeTeile() {
-        List<TeilType> tl = new ArrayList<>();
-        int amount;
-        for(TeilType tt : TeilType.values()) {
-            amount = tt.getAmount();
-            for (Teil t : teilliste) if (t.getType() == tt) amount--;
-            if (amount > 0) for (int i = 0; i < amount; i++) tl.add(tt);
-        }
-        return tl;
+        return fehlendeTeile;
     }
 }
