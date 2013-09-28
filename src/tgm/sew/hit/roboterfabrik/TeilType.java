@@ -5,17 +5,17 @@ package tgm.sew.hit.roboterfabrik;
  * Bestandteile des Threadees
  * 
  * @author Dominik
- * @version 0.1
+ * @version 0.2
  */
-public enum TeilTyp {
+public enum TeilType {
     AUGE,
     RUMPF,
     KETTENANTRIEB,
     ARM;
     
     /**
-     * Gibt den Dateiname zum dazugehörigen TeilTyp zurück
-     * @return der Dateiname zum TeilTyp
+     * Gibt den Dateiname zum dazugehörigen TeilType zurück
+     * @return der Dateiname zum TeilType
      */
     public String filename() {
         return this.toString().toLowerCase();
