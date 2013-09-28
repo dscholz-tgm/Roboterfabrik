@@ -5,7 +5,7 @@ package tgm.sew.hit.roboterfabrik;
  * um den Zusammenbau der Threadees kümmert
  * 
  * @author Dominik
- * @version 0.3
+ * @version 0.4
  */
 public class MontageMitarbeiter implements Stoppable {
     
@@ -37,7 +37,8 @@ public class MontageMitarbeiter implements Stoppable {
             }
             threadee = new Threadee(fabrik.getSekretariat().nextThreadeeID());
             while (threadee.addTeil(fabrik.getTeil(threadee.fehlendeTeile())));
-            //Threadee speichern
+            threadee.zusammenbauen();
+            //Threadee speichern: fabrik.getLagerMitarbeiter().lagerThreadee(threadee);
         }
     }
 
