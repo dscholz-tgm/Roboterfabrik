@@ -8,7 +8,7 @@ import java.util.Random;
  * Generiert zufällige Teile und liefert sie der Fabrik
  * 
  * @author Dominik
- * @version 0.2
+ * @version 0.3
  */
 public class Lieferant implements Stoppable {
     
@@ -19,17 +19,21 @@ public class Lieferant implements Stoppable {
     private int speed;
     private boolean stop = false;
     
+    private int teilIntervall;
     private Random rand;
+    private TeilType type;
     
     /**
      * Konstruktor des Lieferanten
      * @param fabrik die Referenz auf die Fabrik,
      * welcher der Mitarbeiter zugeordnet ist
      * @param speed in welcher Geschwindigkeit die Threadees gebaut werden
+     * @param teilIntervall nach welchem Zeitintervakll die Art der gelieferten Teile wechseln
      */
-    public Lieferant (Fabrik fabrik, int speed) {
+    public Lieferant (Fabrik fabrik, int speed, int teilIntervall) {
         this.fabrik = fabrik;
         this.speed = speed;
+        this.teilIntervall = teilIntervall;
         rand = new Random(System.currentTimeMillis());
     }
     
@@ -38,26 +42,31 @@ public class Lieferant implements Stoppable {
      */
     @Override
     public void run() {
+        int intervallCounter = teilIntervall;
         while(!stop) {
             try {
                 Thread.sleep(speed);
             } catch (InterruptedException ex) {
             }
-            fabrik.lieferTeil(randomTeil(),randomIntList());
+            intervallCounter-=speed;
+            if(intervallCounter <= 0) {
+                intervallCounter = teilIntervall;
+                randomTeil();
+            }
+            fabrik.lieferTeil(type,randomIntList());
         }
     }
     
     /**
      * Sucht einen Zufälligen Teil aus
-     * @return einen zufäligen TeilType
      */
-    public TeilType randomTeil() {
-        return TeilType.values()[rand.nextInt(TeilType.values().length)];
+    public void randomTeil() {
+        type = TeilType.values()[rand.nextInt(TeilType.values().length)];
     }
     
     /**
-     * Generiert Eine Liste mit 20 zufälligen Integer Werten
-     * @return eine Liste mit 20 (pseudo)zufälligen Integer Werten
+     * Generiert Eine Liste mit LIST_SIZE zufälligen Integer Werten
+     * @return eine Liste mit LIST_SIZE (pseudo)zufälligen Integer Werten
      */
     public List<Integer> randomIntList() {
         List<Integer> ar = new ArrayList<Integer>(LIST_SIZE);
