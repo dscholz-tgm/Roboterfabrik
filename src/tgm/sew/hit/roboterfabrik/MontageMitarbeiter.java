@@ -5,13 +5,14 @@ package tgm.sew.hit.roboterfabrik;
  * um den Zusammenbau der Threadees kümmert
  * 
  * @author Dominik
- * @version 0.4
+ * @version 0.5
  */
 public class MontageMitarbeiter implements Stoppable {
     
     private int id;
+    
     private Fabrik fabrik;
-    private int time;
+    private int speed;
     private boolean stop = false;
     
     private Threadee threadee;
@@ -26,13 +27,17 @@ public class MontageMitarbeiter implements Stoppable {
     public MontageMitarbeiter(int id, Fabrik fabrik, int speed) {
         this.id = id;
         this.fabrik = fabrik;
+        this.speed = speed;
     }
 
+    /**
+     * Run Methode von Runnable
+     */
     @Override
     public void run() {
         while(!stop) {
             try {
-                Thread.sleep(time);
+                Thread.sleep(speed);
             } catch (InterruptedException ex) {
             }
             threadee = new Threadee(fabrik.getSekretariat().nextThreadeeID());

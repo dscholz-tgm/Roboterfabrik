@@ -5,7 +5,7 @@ package tgm.sew.hit.roboterfabrik;
  * Bestandteile des Threadees
  * 
  * @author Dominik
- * @version 0.3
+ * @version 0.4
  */
 public enum TeilType {
     AUGE(2),
@@ -33,5 +33,14 @@ public enum TeilType {
      */
     public String filename() {
         return this.toString().toLowerCase();
+    }
+    
+    /**
+     * Gibt den Namen zum dazugehörigen TeilType zurück
+     * (Erster Char groß, rest Klein)
+     * @return der Name zum TeilType
+     */
+    public String casename() {
+        return this.toString().charAt(0) + this.toString().substring(1).toLowerCase();
     }
 }

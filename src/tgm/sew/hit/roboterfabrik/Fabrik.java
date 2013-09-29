@@ -7,7 +7,7 @@ import java.util.List;
  * Erstellt die Threads und stellt die Verbindung zwischen ihnen dar
  * 
  * @author Dominik
- * @version 0.1
+ * @version 0.2
  */
 public class Fabrik {
     
@@ -15,6 +15,7 @@ public class Fabrik {
     private int lieferantenPoolSize;
     private int time;
     private Sekretariat sekretariat;
+    private LagerMitarbeiter lagerMitarbeiter;
     
     /**
      * Erstellt die Fabrik
@@ -47,6 +48,15 @@ public class Fabrik {
         //Mit Lager Mitarbeiter Teil suchen
         
         return new Teil(TeilType.ARM,Arrays.asList(1,2,3));
+    }
+
+    /**
+     * Bekommt ein Teil geliefert, welches in das richige File gespeichert wird
+     * @param randomTeil
+     * @param randomIntList 
+     */
+    public void lieferTeil(TeilType randomTeil, List<Integer> randomIntList) {
+        
     }
     
 }
