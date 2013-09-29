@@ -8,7 +8,7 @@ import java.util.Random;
  * Generiert zufällige Teile und liefert sie der Fabrik
  * 
  * @author Dominik
- * @version 0.1
+ * @version 0.2
  */
 public class Lieferant implements Stoppable {
     
@@ -61,7 +61,7 @@ public class Lieferant implements Stoppable {
      */
     public List<Integer> randomIntList() {
         List<Integer> ar = new ArrayList<Integer>(LIST_SIZE);
-        for (int i = 0; i < 20; i++) ar.add(rand.nextInt(MAX_NUMBER)+1);
+        for (int i = 0; i < LIST_SIZE; i++) ar.add(rand.nextInt(MAX_NUMBER)+1);
         return ar;
     }
 
