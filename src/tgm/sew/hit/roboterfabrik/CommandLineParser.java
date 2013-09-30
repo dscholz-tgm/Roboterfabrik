@@ -6,7 +6,7 @@ import java.io.File;
  * Parsed die CommandLine, Hardgecoded weil ich CLI nicht mag
  * 
  * @author Dominik
- * @version 0.1
+ * @version 0.2
  */
 public class CommandLineParser {
     
@@ -59,5 +59,21 @@ public class CommandLineParser {
             }
         }
         return false;
+    }
+    
+    /**
+     * Gibt den Ordner zurück, indem das Lager gespeichert ist
+     * @return der Ordner, indem das Lager gespeichert ist
+     */
+    public File lagerFolder() {
+        return lagerFolder;
+    }
+    
+    /**
+     * Gibt den Ordner zurück, indem der Log gespeichert ist
+     * @return der Ordner, indem der Log gespeichert ist
+     */
+    public File logFolder() {
+        return logFolder;
     }
 }
