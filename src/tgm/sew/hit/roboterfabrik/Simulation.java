@@ -13,6 +13,6 @@ public class Simulation {
      * @param args die Command-line Argumente
      */
     public static void main(String[] args) {
-        System.out.println("Test");
+        System.out.println(args.length);
     }
 }
