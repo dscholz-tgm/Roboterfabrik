@@ -52,7 +52,10 @@ public class LagerMitarbeiter {
             for (int i : teil.getZahlenList()) sb.append(",").append(i);
             w.write(System.lineSeparator() + sb.toString());
         } catch (IOException ex) {
-            //IO Fehler Loggen!
+            /**
+             * IO Fehler Loggen!
+             * logger.log(Level.INFO, "ERROR: Daten konnten nicht gespeichert werden", ex);
+             */
         }
     }
     
