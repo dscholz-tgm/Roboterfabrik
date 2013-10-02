@@ -1,5 +1,7 @@
 package tgm.sew.hit.roboterfabrik;
 
+import java.io.File;
+
 /**
  * Die Main Klasse der Roboterfabrik
  * 
@@ -14,5 +16,6 @@ public class Simulation {
      */
     public static void main(String[] args) {
         System.out.println(args.length);
+        //System.out.println(File.separator);
     }
 }

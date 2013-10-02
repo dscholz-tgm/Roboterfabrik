@@ -51,4 +51,12 @@ public class Teil {
         istGebaut = true;
         return zahlen;
     }
+    
+    /**
+     * Gibt die Zahlenliste zurück
+     * @return die Zahlenliste
+     */
+    public List<Integer> getZahlenList() {
+        return zahlen;
+    }
 }
