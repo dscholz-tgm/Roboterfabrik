@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
  * Generiert zufällige Teile und liefert sie der Fabrik
  * 
  * @author Dominik
- * @version 0.10
+ * @version 0.11
  */
 public class Lieferant implements Stoppable {
     
@@ -38,7 +38,8 @@ public class Lieferant implements Stoppable {
         this.fabrik = fabrik;
         this.speed = speed;
         this.teilIntervall = teilIntervall;
-        rand = new Random(System.currentTimeMillis()+this.hashCode());
+        long seed = System.currentTimeMillis()+this.hashCode();
+        rand = new Random(seed);
         randomTeil();
     }
     
@@ -59,7 +60,7 @@ public class Lieferant implements Stoppable {
                 randomTeil();
             }
             fabrik.lieferTeil(new Teil(type,randomIntList()));
-            logger.log(Level.INFO, "Neues Teil des Types: " + type.casename() + " geliefert");
+            logger.log(Level.INFO, type.casename() + " geliefert");
         }
         logger.log(Level.INFO, "Lieferschluss");
     }
@@ -69,7 +70,7 @@ public class Lieferant implements Stoppable {
      */
     public void randomTeil() {
         type = TeilType.values()[rand.nextInt(TeilType.values().length)];
-        logger.log(Level.INFO, "Liefere ab jetzt Teile des Types: " + type.casename());
+        logger.log(Level.INFO, type.casename() + " wird ab jetzt geliefert");
     }
     
     /**

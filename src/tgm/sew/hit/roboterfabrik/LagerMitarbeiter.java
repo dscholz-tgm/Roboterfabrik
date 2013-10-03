@@ -78,7 +78,7 @@ public class LagerMitarbeiter {
      * @param teilType welche Art von Teil geladen werden soll
      * @return ein Teil des entsprechenden TeilTypes aus dem Lager
      */
-    public synchronized Teil leseTeil(TeilType teilType) {
+    public Teil leseTeil(TeilType teilType) {
         File f = teilFiles.get(teilType);
         List<Integer> li = new ArrayList<>();
         BufferedReader r;
@@ -142,7 +142,8 @@ public class LagerMitarbeiter {
         try {
             w = new BufferedWriter(new FileWriter(threadeeFile,true));
             StringBuilder sb = new StringBuilder("Threadee-ID" + threadee.getID() + ",Mitarbeiter-ID" + threadee.getMitarbeiterID());
-            for(Teil teil : threadee.getTeilListe()) {
+            List<Teil> teilListe = threadee.getTeilListe();
+            for(Teil teil : teilListe) {
                 sb.append(",").append(teil.getType().casename());
                 for (int i : teil.getZahlenList()) sb.append(",").append(i);
             }
