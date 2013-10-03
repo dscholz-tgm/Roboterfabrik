@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
  * um den Zusammenbau der Threadees kümmert
  * 
  * @author Dominik
- * @version 0.7
+ * @version 0.8
  */
 public class MontageMitarbeiter implements Stoppable {
     
@@ -41,7 +41,7 @@ public class MontageMitarbeiter implements Stoppable {
     public void run() {
         while(!stop) {
             try {
-                Thread.sleep(speed);
+                Thread.sleep(speed*1000);
             } catch (InterruptedException ex) {
             }
             threadee = new Threadee(fabrik.getSekretariat().nextThreadeeID(),id);

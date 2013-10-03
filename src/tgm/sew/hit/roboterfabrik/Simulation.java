@@ -12,7 +12,7 @@ import org.apache.log4j.SimpleLayout;
  * Die Main Klasse der Roboterfabrik
  * 
  * @author Dominik
- * @version 0.2
+ * @version 0.3
  */
 public class Simulation {
 
@@ -32,7 +32,7 @@ public class Simulation {
      * @param args 
      */
     public Simulation(String[] args) {
-        CommandLineParser clp = new CommandLineParser(30,30,2*60*1000);
+        CommandLineParser clp = new CommandLineParser(30,30,1000);
         clp.parse(args);
         try {
             FileAppender fa = new FileAppender(new SimpleLayout(), clp.logFolder().getPath() + File.separator + "fabrik.log",false);
