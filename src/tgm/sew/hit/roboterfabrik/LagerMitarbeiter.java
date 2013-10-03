@@ -21,7 +21,7 @@ import org.apache.log4j.Logger;
  * welcher sich um die Lagerung der Teile kümmert
  * 
  * @author Dominik
- * @version 0.4
+ * @version 0.6
  */
 public class LagerMitarbeiter {
     
@@ -38,9 +38,9 @@ public class LagerMitarbeiter {
     public LagerMitarbeiter(File lagerFolder) {
         this.lagerFolder = lagerFolder;
         for (TeilType tt : TeilType.values()) {
-            teilFiles.put(tt, new File(lagerFolder.getPath() + File.separator + tt.filename() + ".csv"));
+            teilFiles.put(tt, new File(lagerFolder.getAbsoluteFile() + File.separator + tt.filename() + ".csv"));
         }
-        threadeeFile = new File(lagerFolder.getPath() + File.separator + "threadee.csv");
+        threadeeFile = new File(lagerFolder.getAbsoluteFile() + File.separator + "threadee.csv");
         logger.log(Level.INFO, "Datein geladen");
     }
     

@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
  * für die Threadees und Mitarbeiter bereitstellt
  * 
  * @author Dominik
- * @version 0.2
+ * @version 0.3
  */
 public class Sekretariat {
     
@@ -39,7 +39,7 @@ public class Sekretariat {
      * Gibt die nächste MitarbeiterID aus
      * @return die nächste MitarbeiterID
      */
-    public int nextMitarbeiterID() {
+    public synchronized int nextMitarbeiterID() {
         logger.log(Level.INFO, "Mitarbeiter ID " + mitarbeiterID + " vergeben");
         return mitarbeiterID++;
     }
@@ -48,7 +48,7 @@ public class Sekretariat {
      * Gibt die nächste ThreadeeID aus
      * @return die nächste ThreadeeID
      */
-    public int nextThreadeeID() {
+    public synchronized int nextThreadeeID() {
         logger.log(Level.INFO, "Threadee ID " + threadeeID + " vergeben");
         return threadeeID++;
     }
