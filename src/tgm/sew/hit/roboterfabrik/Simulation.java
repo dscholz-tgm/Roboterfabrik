@@ -32,7 +32,7 @@ public class Simulation {
      * @param args 
      */
     public Simulation(String[] args) {
-        CommandLineParser clp = new CommandLineParser(30,30,10000);
+        CommandLineParser clp = new CommandLineParser(30,30,5*60*1000);
         if(clp.parse(args)) {
             try {
                 FileAppender fa = new FileAppender(new SimpleLayout(), clp.logFolder().getPath() + File.separator + "fabrik.log",false);

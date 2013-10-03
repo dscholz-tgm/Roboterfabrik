@@ -21,7 +21,7 @@ import org.apache.log4j.Logger;
  * welcher sich um die Lagerung der Teile kümmert
  * 
  * @author Dominik
- * @version 0.7
+ * @version 0.8
  */
 public class LagerMitarbeiter {
     
@@ -44,11 +44,13 @@ public class LagerMitarbeiter {
             try {
                 f.createNewFile();
             } catch (IOException ex) {
-                System.out.println("BUG!!");
             }
-            System.out.println(lagerFolder.getAbsolutePath() + File.separator + tt.filename() + ".csv");
         }
         threadeeFile = new File(lagerFolder.getAbsolutePath() + File.separator + "threadee.csv");
+        try {
+            threadeeFile.createNewFile();
+        } catch (IOException ex) {
+        }
         logger.log(Level.INFO, "Datein geladen");
     }
     
@@ -82,11 +84,16 @@ public class LagerMitarbeiter {
         BufferedReader r;
         try {
             r = new BufferedReader(new FileReader(f));
-            StringTokenizer st = new StringTokenizer(r.readLine(),",");
+            String line = r.readLine();
+            if (line == null || line.equals("")) return null;
+            logger.log(Level.INFO, line);
+            StringTokenizer st = new StringTokenizer(line,",");
             st.nextToken();
             while (st.hasMoreTokens()) {
                 try {
-                    li.add(Integer.parseInt(st.nextToken()));
+                    String s = st.nextToken();
+                    logger.log(Level.INFO, s);
+                    li.add(Integer.parseInt(s));
                 } catch (NumberFormatException nfe) {
                     logger.log(Level.ERROR, "Corrupted File, keine Nummer: " + teilType.filename() + ".csv\n");
                 }

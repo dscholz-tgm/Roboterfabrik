@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
  * Erstellt die Threads und stellt die Verbindung zwischen ihnen dar
  * 
  * @author Dominik
- * @version 0.6
+ * @version 0.7
  */
 public class Fabrik {
     
@@ -42,7 +42,7 @@ public class Fabrik {
             montageMitarbeiter.add(new MontageMitarbeiter(sekretariat.nextMitarbeiterID(),this,1000));
         Queue<Stoppable> lieferanten = new LinkedList<>();
         for (int i = 0; i < lieferantenPoolSize; i++)
-            lieferanten.add(new Lieferant(this,2*60*1000,10*1000));
+            lieferanten.add(new Lieferant(this,4*1000,1*1000));
         
         mitarbeiterPool = new TimedThreadPool(montageMitarbeiter,montageMitarbeiterPoolSize,time);
         lieferantenPool = new TimedThreadPool(lieferanten,lieferantenPoolSize,time);
@@ -67,8 +67,8 @@ public class Fabrik {
         int i = 0;
         Teil t = lagerMitarbeiter.leseTeil(fehlendeTeile.get(i));
         while (t == null && i < fehlendeTeile.size()) {
-            i++;
             t = lagerMitarbeiter.leseTeil(fehlendeTeile.get(i));
+            i++;
         }
         if (t == null) throw new TeilNichtImLagerException();
         return t;
