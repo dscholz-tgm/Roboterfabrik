@@ -6,17 +6,18 @@ import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.FileAppender;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.apache.log4j.SimpleLayout;
+import org.apache.log4j.PatternLayout;
 
 /**
  * Die Main Klasse der Roboterfabrik
  * 
  * @author Dominik
- * @version 0.5
+ * @version 0.6
  */
 public class Simulation {
 
     private static final Logger logger = Logger.getLogger("Fabriklog");
+    private String logPattern = "[%d{HH:mm:ss}] %-5p: %m%n";
     
     /**
      * Wird beim starten aufgerufen
@@ -35,7 +36,7 @@ public class Simulation {
         CommandLineParser clp = new CommandLineParser(30,30,5*60*1000);
         if(clp.parse(args)) {
             try {
-                FileAppender fa = new FileAppender(new SimpleLayout(), clp.logFolder().getPath() + File.separator + "fabrik.log",false);
+                FileAppender fa = new FileAppender(new PatternLayout(logPattern), clp.logFolder().getPath() + File.separator + "fabrik.log",false);
                 BasicConfigurator.configure(fa);
                 logger.log(Level.INFO, "booting Simulation");
                 logger.log(Level.INFO, "STARTING THE SIMULATION");
