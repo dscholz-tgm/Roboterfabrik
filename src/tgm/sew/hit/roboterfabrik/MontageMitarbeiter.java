@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
  * um den Zusammenbau der Threadees kümmert
  * 
  * @author Dominik
- * @version 0.11
+ * @version 0.12
  */
 public class MontageMitarbeiter implements Stoppable {
     
@@ -51,7 +51,7 @@ public class MontageMitarbeiter implements Stoppable {
                     threadee.addTeil(fabrik.getTeil(threadee.fehlendeTeile()));
                 } catch (TeilNichtImLagerException ex) {
                     try {
-                        Thread.sleep(1000*new Random().nextInt(60));
+                        Thread.sleep(new Random().nextInt(1000*60));
                     } catch (InterruptedException ex1) {
                     }
                 }
