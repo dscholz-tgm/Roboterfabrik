@@ -6,23 +6,24 @@ import java.io.File;
  * Parsed die CommandLine, Hardgecoded weil ich CLI nicht mag
  * 
  * @author Dominik
- * @version 0.2
+ * @version 0.3
  */
 public class CommandLineParser {
     
+    private int maxLieferanten, maxMonteure, maxLaufzeit;
     private int lieferanten, monteure, laufzeit;
     private File lagerFolder, logFolder;
     
     /**
      * Konstruktor des CommandLineParsers
-     * @param lieferanten die maximal mögliche Anzahl an Lieferanten
-     * @param monteure die maximal mögliche Anzahl an Monteuren
-     * @param laufzeit  die maximal mögliche Anzahl an Laufzeit
+     * @param maxLieferanten die maximal mögliche Anzahl an Lieferanten
+     * @param maxMonteure die maximal mögliche Anzahl an Monteuren
+     * @param maxLaufzeit  die maximal mögliche Anzahl an Laufzeit
      */
-    public CommandLineParser(int lieferanten, int monteure, int laufzeit) {
-        this.lieferanten = lieferanten;
-        this.monteure = monteure;
-        this.laufzeit = laufzeit;
+    public CommandLineParser(int maxLieferanten, int maxMonteure, int maxLaufzeit) {
+        this.maxLieferanten = maxLieferanten;
+        this.maxMonteure = maxMonteure;
+        this.maxLaufzeit = maxLaufzeit;
     }
     
     /**
@@ -48,9 +49,13 @@ public class CommandLineParser {
                 aLaufzeit = Integer.parseInt(args[9]);
             } catch (Exception ex) {
             }
-            if (aLieferanten > 0 && aLieferanten <= lieferanten &&
-                    aMonteure > 0 && aMonteure <= monteure &&
-                    aLaufzeit > 0 && aLaufzeit <= laufzeit) {
+            if (aLieferanten > 0 && aLieferanten <= maxLieferanten &&
+                    aMonteure > 0 && aMonteure <= maxMonteure &&
+                    aLaufzeit > 0 && aLaufzeit <= maxLaufzeit) {
+                
+                lieferanten = aLieferanten;
+                monteure = aMonteure;
+                laufzeit = aLaufzeit;
                 
                 lagerFolder = new File(args[1]);
                 logFolder = new File(args[3]);
@@ -76,4 +81,29 @@ public class CommandLineParser {
     public File logFolder() {
         return logFolder;
     }
+    
+    /**
+     * Gibt die angegebenen Lieferanten zurück
+     * @return die Anzahl der Lieferanten
+     */
+    public int getLieferanten() {
+        return lieferanten;
+    }
+    
+    /**
+     * Gibt die angegebenen Monteure zurück
+     * @return die Anzahl der Monteure
+     */
+    public int getMonteure() {
+        return monteure;
+    }
+    
+    /**
+     * Gibt die angegebene Laufzeit zurück
+     * @return die Laufzeit
+     */
+    public int getLaufzeit() {
+        return laufzeit;
+    }
+    
 }

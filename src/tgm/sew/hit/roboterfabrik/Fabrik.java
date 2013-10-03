@@ -2,12 +2,14 @@ package tgm.sew.hit.roboterfabrik;
 
 import java.util.Arrays;
 import java.util.List;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 /**
  * Erstellt die Threads und stellt die Verbindung zwischen ihnen dar
  * 
  * @author Dominik
- * @version 0.3
+ * @version 0.4
  */
 public class Fabrik {
     
@@ -17,6 +19,8 @@ public class Fabrik {
     private Sekretariat sekretariat;
     private LagerMitarbeiter lagerMitarbeiter;
     
+    private static final Logger logger = Logger.getLogger("Fabriklog");
+    
     /**
      * Erstellt die Fabrik
      * 
@@ -25,6 +29,7 @@ public class Fabrik {
      * @param time Wie lange das Programm laufen soll
      */
     public Fabrik(int montageMitarbeiterPoolSize, int lieferantenPoolSize, int time) {
+        logger.log(Level.INFO, "booting Fabrik");
         this.montageMitarbeiterPoolSize = montageMitarbeiterPoolSize;
         this.lieferantenPoolSize = lieferantenPoolSize;
         this.time = time;
