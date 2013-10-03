@@ -7,7 +7,7 @@ import java.util.List;
  * Erstellt die Threads und stellt die Verbindung zwischen ihnen dar
  * 
  * @author Dominik
- * @version 0.2
+ * @version 0.3
  */
 public class Fabrik {
     
@@ -64,7 +64,7 @@ public class Fabrik {
      * @param threadee 
      */
     public void lagerThreadee(Threadee threadee) {
-        //lagerMitarbeiter.lagerThreadee();
+        lagerMitarbeiter.lagerThreadee(threadee);
     }
     
 }

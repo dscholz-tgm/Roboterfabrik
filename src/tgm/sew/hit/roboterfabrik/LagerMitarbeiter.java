@@ -21,7 +21,7 @@ import org.apache.log4j.Logger;
  * welcher sich um die Lagerung der Teile kümmert
  * 
  * @author Dominik
- * @version 0.3
+ * @version 0.4
  */
 public class LagerMitarbeiter {
     
@@ -117,4 +117,26 @@ public class LagerMitarbeiter {
             logger.log(Level.ERROR, "Fehler beim bearbeiten der Datei: " + nf.getName());
         }
     }
+
+    /**
+     * Lagert einen Threadee
+     * @param threadee der Threadee welcher gelagert werden soll
+     */
+    public void lagerThreadee(Threadee threadee) {
+        BufferedWriter w;
+        try {
+            w = new BufferedWriter(new FileWriter(threadeeFile));
+            StringBuilder sb = new StringBuilder("Threadee-ID" + threadee.getID() + ",Mitarbeiter-ID" + threadee + ",");
+            for(Teil teil : threadee.getTeilListe()) {
+                for (int i : teil.getZahlenList()) sb.append(",").append(i);
+            }
+            w.write("\n"+ sb.toString());
+            w.flush();
+            w.close();
+            logger.log(Level.INFO, "Threadee " + threadee.getID() + " eingelagert");
+        } catch (IOException ex) {
+            logger.log(Level.ERROR, "Daten konnten nicht gespeichert werden");
+        }
+    }
+    
 }

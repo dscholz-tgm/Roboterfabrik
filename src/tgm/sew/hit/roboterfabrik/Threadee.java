@@ -7,21 +7,23 @@ import java.util.List;
  * Stellt einen Threadee dar
  * 
  * @author Dominik
- * @version 0.4
+ * @version 0.5
  */
 public class Threadee {
     
     private List<Teil> teilListe = new ArrayList<>();
     private List<TeilType> fehlendeTeile = new ArrayList<>();
     private int id;
+    private int mitarbeiterID;
     private boolean istGebaut = false;
     
     /**
      * Threadee Konstruktor
      * @param id die ID des Threadees
      */
-    public Threadee(int id) {
+    public Threadee(int id, int mitarbeiterID) {
         this.id = id;
+        this.mitarbeiterID = mitarbeiterID;
         for (TeilType tt : TeilType.values()) {
             for (int i = 0; i < tt.getAmount(); i++) fehlendeTeile.add(tt);
         }
@@ -75,4 +77,23 @@ public class Threadee {
     public int getID() {
         return id;
     }
+    
+    /**
+     * Gibt die MitarbeiterID des
+     * Mitarbeiters zurück, der diesen
+     * Threadee zusammengebaut hat
+     * @return die ID des Mitarbeiters
+     */
+    public int getMitarbeiterID() {
+        return mitarbeiterID;
+    }
+    
+    /**
+     * Gibt die Teilliste zurück
+     * @return die Teilliste
+     */
+    public List<Teil> getTeilListe() {
+        return teilListe;
+    }
+    
 }
