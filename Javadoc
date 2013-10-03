@@ -1,0 +1,62 @@
+/**
+* Lieferant
+*Der Lieferant soll die nötigen Bauteile liefern die man für den Zusammenbau des Roboters braucht.
+*Die Bauteile werden nach einen bestimmten Algorithmus generiert und dannach zur Fabrik
+*geliefert. 
+*
+*
+*Lagermitarbeiter
+*Der Lagermitarbeiter ist zuständig für das lagern und vergeben der Bauteile.
+*Er nimmt die Bauteile vom Lieferanten entgegen und speichert sie in Files hinein.
+*Nur der Lagermitarbeiter kann auf die gelagerten Bauteile zugreifen, wenn Bauteile benötigt werden 
+*muss man den Lagermitarbeiter anfragen.
+*Sowie jeder Mitarbeiter hat auch der Lagermitarbeiter eine eindeutige ID.
+*Alle Aktivitäten von dem Lagermitarbeiter werden in einem Logfile gespeichert.
+*
+*Montagemitarbeiter
+*Der Montagemitarbeiter baut einen Roboter(Threadee) sobald er alle dafür benötigten Bauteile
+*vorhanden sind. Die Bauteile muss er sich vom Lagermitarbeiter holen. Wenn ein Montagemitarbeiter
+*zulange für seine Arbeit braucht, muss er alle seine bisherigen genommenen Bauteile zurück geben.
+*Jeder Montagemitarbeiter hat nur eine begrenzte Arbeitszeit und wird nachher eine Pause einlegen.
+*Sowie jeder Mitarbeiter hat auch der Montagemitarbeiter eine eindeutige ID.
+*Alle Aktivitäten von dem Montagemitarbeiter werden in einem Logfile gespeichert.
+*
+*Fabrik
+*Die Fabrik verwaltet alle Mitarbeiter in der Roboterfabrik. Wenn der Lieferant die nötigen
+*Bauteile geliefert hat, leitet die Fabrik die Bauteile an den Lagermitarbeiter weiter. Wenn der
+*Montagemitarbeiter Bauteile von dem Lagermitarbeiter braucht, schickt er eine Anfrage an die Fabrik, dass sie
+*ihm einen Lagermitarbeiter bereitstellen soll der sich um die Aufgabe kümmert.
+*Alle Aktivitäten von der Fabrik werden in einem Logfile gespeichert.
+*
+*Sekretariat
+*Das Sekreteriat erteilt jeden Mitarbeiter eine eindeutige ID. 
+*
+*Teil
+*Die Bauteile werden von den Lieferanten generiert und von Montagemitarbeiter verwendet um Threadees zu bauen.
+*Teile werden über den Lagermitarbeiter verwaltet.
+*
+*TeilType
+*Es gibt 5 verschiedene Teile die als Bautteile zählen: Kopf, Auge, Rumpf, Arme und der Kettenantrieb.
+*
+*Threadee
+*Der Threadee ist ein fertig zusammengebauter Roboter. Jeder Threadee bekommt die ID vom Montagemitarbeiter 
+*von dem er gebaut wurde. Der Threadee wird als csv-file abgespeichert.
+*
+*Simulation
+*Die Simulation startet den Vorgang der Roboterfabrik. Nachdem Ausführen dieser Klasse hat diese keinen
+*weiteren Nutzen.
+*
+*CommandLineParser
+*Liest die Argumente der Kommandozeile aus und validiert diese.
+*
+*Stoppable
+*Ist ein Interface was auf Runnable basiert. Zusätzlich verfügt es über eine Watchdog Funktion. Wird verwendet
+*um Threads zu betreuen damit man sie zB. extern aufwecken kann.
+*
+*TeilNichtImLagerException
+*Gibt eine Meldung aus wenn der Lagermitarbeiter kein Teil besitzt was gerade ein Montagemitarbeiter benötigt.
+*
+*TimedThreadPool
+*Damit wir mehrere Mitarbeiter haben die die gleiche Funktion haben und alle gemeinsam ansprechen können
+*erstellen wir ein Pool (Menge) von Mitarbeitern.
+*/
