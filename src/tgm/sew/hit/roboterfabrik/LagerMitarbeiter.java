@@ -21,7 +21,7 @@ import org.apache.log4j.Logger;
  * welcher sich um die Lagerung der Teile kümmert
  * 
  * @author Dominik
- * @version 0.6
+ * @version 0.7
  */
 public class LagerMitarbeiter {
     
@@ -37,10 +37,18 @@ public class LagerMitarbeiter {
      */
     public LagerMitarbeiter(File lagerFolder) {
         this.lagerFolder = lagerFolder;
+        File f;
         for (TeilType tt : TeilType.values()) {
-            teilFiles.put(tt, new File(lagerFolder.getAbsoluteFile() + File.separator + tt.filename() + ".csv"));
+            f = new File(lagerFolder.getAbsolutePath() + File.separator + tt.filename() + ".csv");
+            teilFiles.put(tt, f);
+            try {
+                f.createNewFile();
+            } catch (IOException ex) {
+                System.out.println("BUG!!");
+            }
+            System.out.println(lagerFolder.getAbsolutePath() + File.separator + tt.filename() + ".csv");
         }
-        threadeeFile = new File(lagerFolder.getAbsoluteFile() + File.separator + "threadee.csv");
+        threadeeFile = new File(lagerFolder.getAbsolutePath() + File.separator + "threadee.csv");
         logger.log(Level.INFO, "Datein geladen");
     }
     
@@ -126,11 +134,11 @@ public class LagerMitarbeiter {
         BufferedWriter w;
         try {
             w = new BufferedWriter(new FileWriter(threadeeFile));
-            StringBuilder sb = new StringBuilder("Threadee-ID" + threadee.getID() + ",Mitarbeiter-ID" + threadee + ",");
+            StringBuilder sb = new StringBuilder("Threadee-ID" + threadee.getID() + ",Mitarbeiter-ID" + threadee.getMitarbeiterID() + ",");
             for(Teil teil : threadee.getTeilListe()) {
                 for (int i : teil.getZahlenList()) sb.append(",").append(i);
             }
-            w.write("\n"+ sb.toString());
+            w.write(sb.toString());
             w.flush();
             w.close();
             logger.log(Level.INFO, "Threadee " + threadee.getID() + " eingelagert");
