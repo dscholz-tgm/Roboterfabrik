@@ -1,16 +1,21 @@
 package tgm.sew.hit.roboterfabrik;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+
 /**
  * Stellt das Sekretariat dar, welches eindeutige ID's 
  * für die Threadees und Mitarbeiter bereitstellt
  * 
  * @author Dominik
- * @version 0.1
+ * @version 0.2
  */
 public class Sekretariat {
     
     private int mitarbeiterID;
     private int threadeeID;
+    
+    private static final Logger logger = Logger.getLogger("Fabriklog");
     
     /**
      * Default Konstruktor
@@ -35,6 +40,7 @@ public class Sekretariat {
      * @return die nächste MitarbeiterID
      */
     public int nextMitarbeiterID() {
+        logger.log(Level.INFO, "Mitarbeiter ID " + mitarbeiterID + " vergeben");
         return mitarbeiterID++;
     }
     
@@ -43,6 +49,7 @@ public class Sekretariat {
      * @return die nächste ThreadeeID
      */
     public int nextThreadeeID() {
+        logger.log(Level.INFO, "Threadee ID " + threadeeID + " vergeben");
         return threadeeID++;
     }
 }

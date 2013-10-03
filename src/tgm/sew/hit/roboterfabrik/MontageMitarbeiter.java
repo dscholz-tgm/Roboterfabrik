@@ -1,11 +1,14 @@
 package tgm.sew.hit.roboterfabrik;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+
 /**
  * Stellt einen MontageMitarbeiter dar, welcher sich
  * um den Zusammenbau der Threadees kümmert
  * 
  * @author Dominik
- * @version 0.5
+ * @version 0.6
  */
 public class MontageMitarbeiter implements Stoppable {
     
@@ -16,6 +19,7 @@ public class MontageMitarbeiter implements Stoppable {
     private boolean stop = false;
     
     private Threadee threadee;
+    private static final Logger logger = Logger.getLogger("Fabriklog");
     
     /**
      * Konstruktor des MontageMitarbeiters
@@ -43,7 +47,8 @@ public class MontageMitarbeiter implements Stoppable {
             threadee = new Threadee(fabrik.getSekretariat().nextThreadeeID());
             while (threadee.addTeil(fabrik.getTeil(threadee.fehlendeTeile())));
             threadee.zusammenbauen();
-            //Threadee speichern: fabrik.getLagerMitarbeiter().lagerThreadee(threadee);
+            logger.log(Level.INFO, "Threadee " + threadee.getID() + " fertiggestellt");
+            fabrik.lagerThreadee(threadee);
         }
     }
 

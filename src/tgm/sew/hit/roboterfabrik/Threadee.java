@@ -7,7 +7,7 @@ import java.util.List;
  * Stellt einen Threadee dar
  * 
  * @author Dominik
- * @version 0.3
+ * @version 0.4
  */
 public class Threadee {
     
@@ -66,5 +66,13 @@ public class Threadee {
         for (Teil teil : teilListe) teil.zusammenbauen();
         istGebaut = true;
         return true;
+    }
+    
+    /**
+     * Gibt die ThreadeeID zurück
+     * @return die ThreadeeID
+     */
+    public int getID() {
+        return id;
     }
 }

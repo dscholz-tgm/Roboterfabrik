@@ -3,12 +3,14 @@ package tgm.sew.hit.roboterfabrik;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 /**
  * Generiert zufällige Teile und liefert sie der Fabrik
  * 
  * @author Dominik
- * @version 0.3
+ * @version 0.4
  */
 public class Lieferant implements Stoppable {
     
@@ -22,6 +24,8 @@ public class Lieferant implements Stoppable {
     private int teilIntervall;
     private Random rand;
     private TeilType type;
+    
+    private static final Logger logger = Logger.getLogger("Fabriklog");
     
     /**
      * Konstruktor des Lieferanten
@@ -52,8 +56,10 @@ public class Lieferant implements Stoppable {
             if(intervallCounter <= 0) {
                 intervallCounter = teilIntervall;
                 randomTeil();
+                logger.log(Level.INFO, "Liefere ab jetzt Teile des Types: " + type.casename());
             }
             fabrik.lieferTeil(type,randomIntList());
+            logger.log(Level.INFO, "Neues Teil des Types: " + type.casename() + " geliefert");
         }
     }
     
@@ -82,5 +88,4 @@ public class Lieferant implements Stoppable {
     public void stop() {
         stop = true;
     }
- 
 }

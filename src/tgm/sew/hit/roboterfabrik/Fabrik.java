@@ -58,5 +58,13 @@ public class Fabrik {
     public void lieferTeil(TeilType randomTeil, List<Integer> randomIntList) {
         
     }
+
+    /**
+     * Lagert einen Threadee
+     * @param threadee 
+     */
+    public void lagerThreadee(Threadee threadee) {
+        //lagerMitarbeiter.lagerThreadee();
+    }
     
 }
