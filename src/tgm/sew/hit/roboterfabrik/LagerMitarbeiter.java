@@ -29,6 +29,7 @@ public class LagerMitarbeiter {
     private Map<TeilType,File> teilFiles = new HashMap<>();
     private File threadeeFile;
     
+    private static final String dateiendung = ".csv";
     private static final Logger logger = Logger.getLogger("Fabriklog");
 
     
@@ -39,14 +40,14 @@ public class LagerMitarbeiter {
         this.lagerFolder = lagerFolder;
         File f;
         for (TeilType tt : TeilType.values()) {
-            f = new File(lagerFolder.getAbsolutePath() + File.separator + tt.filename() + ".csv");
+            f = new File(lagerFolder.getAbsolutePath() + File.separator + tt.filename() + dateiendung);
             teilFiles.put(tt, f);
             try {
                 f.createNewFile();
             } catch (IOException ex) {
             }
         }
-        threadeeFile = new File(lagerFolder.getAbsolutePath() + File.separator + "threadee.csv");
+        threadeeFile = new File(lagerFolder.getAbsolutePath() + File.separator + "threadee" + dateiendung);
         try {
             threadeeFile.createNewFile();
         } catch (IOException ex) {
@@ -95,13 +96,13 @@ public class LagerMitarbeiter {
                     String s = st.nextToken();
                     li.add(Integer.parseInt(s));
                 } catch (NumberFormatException nfe) {
-                    logger.log(Level.ERROR, "Corrupted File, keine Nummer: " + teilType.filename() + ".csv\n");
+                    logger.log(Level.ERROR, "Corrupted File, keine Nummer: " + teilType.filename() + dateiendung + "\n");
                 }
             }
         } catch (FileNotFoundException ex) {
-            logger.log(Level.ERROR, "File wurde nicht gefunden: " + teilType.filename() + ".csv");
+            logger.log(Level.ERROR, "File wurde nicht gefunden: " + teilType.filename() + dateiendung);
         } catch (IOException ex) {
-            logger.log(Level.ERROR, "Fehler beim bearbeiten der Datei: " + teilType.filename() + ".csv");
+            logger.log(Level.ERROR, "Fehler beim bearbeiten der Datei: " + teilType.filename() + dateiendung);
         }
         return new Teil(teilType,li);
     }
