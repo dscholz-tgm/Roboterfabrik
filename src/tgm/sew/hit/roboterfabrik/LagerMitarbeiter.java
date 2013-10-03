@@ -78,13 +78,15 @@ public class LagerMitarbeiter {
      * @param teilType welche Art von Teil geladen werden soll
      * @return ein Teil des entsprechenden TeilTypes aus dem Lager
      */
-    public Teil leseTeil(TeilType teilType) {
+    public synchronized Teil leseTeil(TeilType teilType) {
         File f = teilFiles.get(teilType);
         List<Integer> li = new ArrayList<>();
         BufferedReader r;
         try {
             r = new BufferedReader(new FileReader(f));
             String line = r.readLine();
+            r.close();
+            deleteLine(f);
             if (line == null || line.equals("")) return null;
             StringTokenizer st = new StringTokenizer(line,",");
             st.nextToken();
@@ -96,8 +98,6 @@ public class LagerMitarbeiter {
                     logger.log(Level.ERROR, "Corrupted File, keine Nummer: " + teilType.filename() + ".csv\n");
                 }
             }
-            r.close();
-            deleteLine(f);
         } catch (FileNotFoundException ex) {
             logger.log(Level.ERROR, "File wurde nicht gefunden: " + teilType.filename() + ".csv");
         } catch (IOException ex) {
