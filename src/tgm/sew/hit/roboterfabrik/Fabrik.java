@@ -1,5 +1,6 @@
 package tgm.sew.hit.roboterfabrik;
 
+import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -10,7 +11,7 @@ import org.apache.log4j.Logger;
  * Erstellt die Threads und stellt die Verbindung zwischen ihnen dar
  * 
  * @author Dominik
- * @version 0.5
+ * @version 0.6
  */
 public class Fabrik {
     
@@ -28,11 +29,13 @@ public class Fabrik {
      * @param montageMitarbeiterPoolSize Wie viele Montage Mitarbeiter erstellt werden sollen
      * @param lieferantenPoolSize Wie viele Lieferanten erstellt werden sollen
      * @param time Wie lange das Programm laufen soll
+     * @param lager Das File als repräsentation des Lagers
      */
-    public Fabrik(int montageMitarbeiterPoolSize, int lieferantenPoolSize, int time) {
+    public Fabrik(int montageMitarbeiterPoolSize, int lieferantenPoolSize, int time, File lager) {
         logger.log(Level.INFO, "booting Fabrik");
         this.time = time;
         sekretariat = new Sekretariat();
+        lagerMitarbeiter = new LagerMitarbeiter(lager);
         
         Queue<Stoppable> montageMitarbeiter = new LinkedList<>();
         for (int i = 0; i < montageMitarbeiterPoolSize; i++)
@@ -60,9 +63,15 @@ public class Fabrik {
      * @param fehlendeTeile eine Liste von TeilTypen von denen ein Teil zurückgegeben werden soll
      * @return einer der benötigten Teile
      */
-    public Teil getTeil(List<TeilType> fehlendeTeile) {
-        //TODO AUSWAHL EINES ANDEREN TEILES, WENN ES NICHT IM LAGER IST
-        return lagerMitarbeiter.leseTeil(fehlendeTeile.get(0));
+    public Teil getTeil(List<TeilType> fehlendeTeile) throws TeilNichtImLagerException {
+        int i = 0;
+        Teil t = lagerMitarbeiter.leseTeil(fehlendeTeile.get(i));
+        while (t == null && i < fehlendeTeile.size()) {
+            i++;
+            t = lagerMitarbeiter.leseTeil(fehlendeTeile.get(i));
+        }
+        if (t == null) throw new TeilNichtImLagerException();
+        return t;
     }
 
     /**

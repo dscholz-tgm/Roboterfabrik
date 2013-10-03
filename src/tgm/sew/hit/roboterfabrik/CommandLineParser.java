@@ -6,7 +6,7 @@ import java.io.File;
  * Parsed die CommandLine, Hardgecoded weil ich CLI nicht mag
  * 
  * @author Dominik
- * @version 0.4
+ * @version 0.6
  */
 public class CommandLineParser {
     
@@ -32,6 +32,7 @@ public class CommandLineParser {
      * @return ob die Eingabe valid ist
      */
     public boolean parse(String[] args) {
+        
         if (args.length >= 10 &&
                 args[0].equals("--lager") &&
                 args[2].equals("--logs") &&
@@ -60,7 +61,10 @@ public class CommandLineParser {
                 lagerFolder = new File(args[1]);
                 logFolder = new File(args[3]);
                 
-                if (lagerFolder.isDirectory() && logFolder.isDirectory()) return true;
+                //if (lagerFolder.isDirectory() && logFolder.isDirectory()) return true;
+                lagerFolder.mkdir();
+                logFolder.mkdir();
+                return true;
             }
         }
         System.out.println("Fehler bei der Eingabe des Commands, Synopsis:");

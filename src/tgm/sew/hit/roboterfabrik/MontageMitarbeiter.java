@@ -1,5 +1,6 @@
 package tgm.sew.hit.roboterfabrik;
 
+import java.util.Random;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
@@ -8,7 +9,7 @@ import org.apache.log4j.Logger;
  * um den Zusammenbau der Threadees kümmert
  * 
  * @author Dominik
- * @version 0.10
+ * @version 0.11
  */
 public class MontageMitarbeiter implements Stoppable {
     
@@ -45,7 +46,16 @@ public class MontageMitarbeiter implements Stoppable {
             } catch (InterruptedException ex) {
             }
             threadee = new Threadee(fabrik.getSekretariat().nextThreadeeID(),id);
-            while (threadee.addTeil(fabrik.getTeil(threadee.fehlendeTeile())));
+            while(!threadee.fehlendeTeile().isEmpty()) {
+                try {
+                    threadee.addTeil(fabrik.getTeil(threadee.fehlendeTeile()));
+                } catch (TeilNichtImLagerException ex) {
+                    try {
+                        Thread.sleep(1000*new Random().nextInt(60));
+                    } catch (InterruptedException ex1) {
+                    }
+                }
+            }
             threadee.zusammenbauen();
             logger.log(Level.INFO, "Threadee " + threadee.getID() + " fertiggestellt");
             fabrik.lagerThreadee(threadee);
