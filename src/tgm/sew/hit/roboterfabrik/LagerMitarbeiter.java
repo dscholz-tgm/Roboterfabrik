@@ -58,7 +58,7 @@ public class LagerMitarbeiter {
      * Lagert ein Teil ein
      * @param teil das Teil, welches gelagert werden soll
      */
-    public synchronized void lagerTeil(Teil teil) {
+    public void lagerTeil(Teil teil) {
         BufferedWriter w;
         try {
             w = new BufferedWriter(new FileWriter(teilFiles.get(teil.getType()),true));
@@ -110,7 +110,7 @@ public class LagerMitarbeiter {
      * Löscht eine Zeile aus dem File 
      * @param f das File aus welchem die Zeile gelöscht werden soll
      */
-    public synchronized void deleteLine(File f) {
+    public void deleteLine(File f) {
         File nf = new File(f.getAbsolutePath() + ".temp");
         try {
             BufferedReader r = new BufferedReader(new FileReader(f));

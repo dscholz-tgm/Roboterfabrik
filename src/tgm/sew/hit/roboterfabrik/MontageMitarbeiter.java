@@ -1,5 +1,6 @@
 package tgm.sew.hit.roboterfabrik;
 
+import java.util.List;
 import java.util.Random;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -47,6 +48,10 @@ public class MontageMitarbeiter implements Stoppable {
             }
             threadee = new Threadee(fabrik.getSekretariat().nextThreadeeID(),id);
             while(!threadee.fehlendeTeile().isEmpty()) {
+                if(stop) {
+                    beendeThreadeebau();
+                    return;
+                }
                 try {
                     threadee.addTeil(fabrik.getTeil(threadee.fehlendeTeile()));
                 } catch (TeilNichtImLagerException ex) {
@@ -79,6 +84,14 @@ public class MontageMitarbeiter implements Stoppable {
     @Override
     public boolean isStopped() {
         return stop;
+    }
+
+    /**
+     * Beendet den Bau des Threadees und gibt die Teile ins Lager zurück
+     */
+    private void beendeThreadeebau() {
+        List<Teil> teilListe = threadee.getTeilListe();
+        for(Teil t : teilListe) fabrik.lieferTeil(t);
     }
     
 }
