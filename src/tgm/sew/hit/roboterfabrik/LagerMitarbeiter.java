@@ -21,7 +21,7 @@ import org.apache.log4j.Logger;
  * welcher sich um die Lagerung der Teile kümmert
  * 
  * @author Dominik
- * @version 0.8
+ * @version 0.9
  */
 public class LagerMitarbeiter {
     
@@ -61,10 +61,10 @@ public class LagerMitarbeiter {
     public void lagerTeil(Teil teil) {
         BufferedWriter w;
         try {
-            w = new BufferedWriter(new FileWriter(teilFiles.get(teil.getType())));
+            w = new BufferedWriter(new FileWriter(teilFiles.get(teil.getType()),true));
             StringBuilder sb = new StringBuilder(teil.getType().casename());
             for (int i : teil.getZahlenList()) sb.append(",").append(i);
-            w.write("\n"+ sb.toString());
+            w.write(sb.toString() + System.lineSeparator());
             w.flush();
             w.close();
             logger.log(Level.INFO, teil.getType().casename() + " eingelagert");
@@ -86,13 +86,11 @@ public class LagerMitarbeiter {
             r = new BufferedReader(new FileReader(f));
             String line = r.readLine();
             if (line == null || line.equals("")) return null;
-            logger.log(Level.INFO, line);
             StringTokenizer st = new StringTokenizer(line,",");
             st.nextToken();
             while (st.hasMoreTokens()) {
                 try {
                     String s = st.nextToken();
-                    logger.log(Level.INFO, s);
                     li.add(Integer.parseInt(s));
                 } catch (NumberFormatException nfe) {
                     logger.log(Level.ERROR, "Corrupted File, keine Nummer: " + teilType.filename() + ".csv\n");
@@ -119,8 +117,10 @@ public class LagerMitarbeiter {
             BufferedWriter w = new BufferedWriter(new FileWriter(nf));
             r.readLine();
             for (String s = "";s != null; s = r.readLine()) {
-                w.write(s + "\n");
-                w.flush();
+                if (!s.equals("")) {
+                    w.write(s + System.lineSeparator());
+                    w.flush();
+                }
             }
             w.close();
             r.close();
@@ -143,9 +143,10 @@ public class LagerMitarbeiter {
             w = new BufferedWriter(new FileWriter(threadeeFile));
             StringBuilder sb = new StringBuilder("Threadee-ID" + threadee.getID() + ",Mitarbeiter-ID" + threadee.getMitarbeiterID() + ",");
             for(Teil teil : threadee.getTeilListe()) {
+                sb.append(teil.getType().casename());
                 for (int i : teil.getZahlenList()) sb.append(",").append(i);
             }
-            w.write(sb.toString());
+            w.write(sb.toString() + System.lineSeparator());
             w.flush();
             w.close();
             logger.log(Level.INFO, "Threadee " + threadee.getID() + " eingelagert");

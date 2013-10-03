@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
  * um den Zusammenbau der Threadees kümmert
  * 
  * @author Dominik
- * @version 0.12
+ * @version 0.13
  */
 public class MontageMitarbeiter implements Stoppable {
     
@@ -60,6 +60,7 @@ public class MontageMitarbeiter implements Stoppable {
             logger.log(Level.INFO, "Threadee " + threadee.getID() + " fertiggestellt");
             fabrik.lagerThreadee(threadee);
         }
+        logger.log(Level.INFO, "Feierabend");
     }
 
     /**

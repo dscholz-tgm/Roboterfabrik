@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
  * Generiert zufällige Teile und liefert sie der Fabrik
  * 
  * @author Dominik
- * @version 0.9
+ * @version 0.10
  */
 public class Lieferant implements Stoppable {
     
@@ -61,6 +61,7 @@ public class Lieferant implements Stoppable {
             fabrik.lieferTeil(new Teil(type,randomIntList()));
             logger.log(Level.INFO, "Neues Teil des Types: " + type.casename() + " geliefert");
         }
+        logger.log(Level.INFO, "Lieferschluss");
     }
     
     /**
