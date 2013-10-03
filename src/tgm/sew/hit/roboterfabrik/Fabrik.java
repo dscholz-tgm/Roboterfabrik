@@ -1,7 +1,8 @@
 package tgm.sew.hit.roboterfabrik;
 
-import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
@@ -9,12 +10,12 @@ import org.apache.log4j.Logger;
  * Erstellt die Threads und stellt die Verbindung zwischen ihnen dar
  * 
  * @author Dominik
- * @version 0.4
+ * @version 0.5
  */
 public class Fabrik {
     
-    private int montageMitarbeiterPoolSize;
-    private int lieferantenPoolSize;
+    private TimedThreadPool mitarbeiterPool;
+    private TimedThreadPool lieferantenPool;
     private int time;
     private Sekretariat sekretariat;
     private LagerMitarbeiter lagerMitarbeiter;
@@ -30,10 +31,20 @@ public class Fabrik {
      */
     public Fabrik(int montageMitarbeiterPoolSize, int lieferantenPoolSize, int time) {
         logger.log(Level.INFO, "booting Fabrik");
-        this.montageMitarbeiterPoolSize = montageMitarbeiterPoolSize;
-        this.lieferantenPoolSize = lieferantenPoolSize;
         this.time = time;
         sekretariat = new Sekretariat();
+        
+        Queue<Stoppable> montageMitarbeiter = new LinkedList<>();
+        for (int i = 0; i < montageMitarbeiterPoolSize; i++)
+            montageMitarbeiter.add(new MontageMitarbeiter(sekretariat.nextMitarbeiterID(),this,1000));
+        Queue<Stoppable> lieferanten = new LinkedList<>();
+        for (int i = 0; i < lieferantenPoolSize; i++)
+            lieferanten.add(new Lieferant(this,2*60*1000,10*1000));
+        
+        mitarbeiterPool = new TimedThreadPool(montageMitarbeiter,montageMitarbeiterPoolSize,time);
+        lieferantenPool = new TimedThreadPool(lieferanten,lieferantenPoolSize,time);
+        
+        startPools();
     }
     
     /**
@@ -50,18 +61,16 @@ public class Fabrik {
      * @return einer der benötigten Teile
      */
     public Teil getTeil(List<TeilType> fehlendeTeile) {
-        //Mit Lager Mitarbeiter Teil suchen
-        
-        return new Teil(TeilType.ARM,Arrays.asList(1,2,3));
+        //TODO AUSWAHL EINES ANDEREN TEILES, WENN ES NICHT IM LAGER IST
+        return lagerMitarbeiter.leseTeil(fehlendeTeile.get(0));
     }
 
     /**
      * Bekommt ein Teil geliefert, welches in das richige File gespeichert wird
-     * @param randomTeil
-     * @param randomIntList 
+     * @param Teil das Teil Welches eingelagert werden soll
      */
-    public void lieferTeil(TeilType randomTeil, List<Integer> randomIntList) {
-        
+    public void lieferTeil(Teil teil) {
+        lagerMitarbeiter.lagerTeil(teil);
     }
 
     /**
@@ -70,6 +79,14 @@ public class Fabrik {
      */
     public void lagerThreadee(Threadee threadee) {
         lagerMitarbeiter.lagerThreadee(threadee);
+    }
+
+    /**
+     * Startet die Pools
+     */
+    private void startPools() {
+        new Thread(mitarbeiterPool).start();
+        new Thread(lieferantenPool).start();
     }
     
 }
