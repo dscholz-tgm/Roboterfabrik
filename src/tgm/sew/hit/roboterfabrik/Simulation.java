@@ -12,7 +12,7 @@ import org.apache.log4j.SimpleLayout;
  * Die Main Klasse der Roboterfabrik
  * 
  * @author Dominik
- * @version 0.3
+ * @version 0.4
  */
 public class Simulation {
 
@@ -33,15 +33,16 @@ public class Simulation {
      */
     public Simulation(String[] args) {
         CommandLineParser clp = new CommandLineParser(30,30,1000);
-        clp.parse(args);
-        try {
-            FileAppender fa = new FileAppender(new SimpleLayout(), clp.logFolder().getPath() + File.separator + "fabrik.log",false);
-            BasicConfigurator.configure(fa);
-            logger.log(Level.INFO, "booting Simulation");
-            logger.log(Level.INFO, "STARTING THE SIMULATION");
-            new Fabrik(clp.getMonteure(),clp.getLieferanten(),clp.getLaufzeit());
-        } catch (IOException ex) {
-            logger.log(Level.ERROR, "Fehler beim erstellen des Logs");
+        if(clp.parse(args)) {
+            try {
+                FileAppender fa = new FileAppender(new SimpleLayout(), clp.logFolder().getPath() + File.separator + "fabrik.log",false);
+                BasicConfigurator.configure(fa);
+                logger.log(Level.INFO, "booting Simulation");
+                logger.log(Level.INFO, "STARTING THE SIMULATION");
+                new Fabrik(clp.getMonteure(),clp.getLieferanten(),clp.getLaufzeit());
+            } catch (IOException ex) {
+                logger.log(Level.ERROR, "Fehler beim erstellen des Logs");
+            }
         }
     }
     

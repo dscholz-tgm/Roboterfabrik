@@ -6,7 +6,7 @@ import java.io.File;
  * Parsed die CommandLine, Hardgecoded weil ich CLI nicht mag
  * 
  * @author Dominik
- * @version 0.3
+ * @version 0.4
  */
 public class CommandLineParser {
     
@@ -63,6 +63,12 @@ public class CommandLineParser {
                 if (lagerFolder.isDirectory() && logFolder.isDirectory()) return true;
             }
         }
+        System.out.println("Fehler bei der Eingabe des Commands, Synopsis:");
+        System.out.println("--lager (verzeichnis) "
+                + "--logs (verzeichnis) "
+                + "--lieferanten [0-" + maxLieferanten + "] "
+                + "--monteure [0-" + maxMonteure + "] "
+                + "--laufzeit [0-" + maxLaufzeit + "] ");
         return false;
     }
     
