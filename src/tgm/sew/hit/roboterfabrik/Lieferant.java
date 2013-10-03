@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
  * Generiert zufällige Teile und liefert sie der Fabrik
  * 
  * @author Dominik
- * @version 0.5
+ * @version 0.7
  */
 public class Lieferant implements Stoppable {
     
@@ -49,7 +49,7 @@ public class Lieferant implements Stoppable {
         int intervallCounter = teilIntervall;
         while(!stop) {
             try {
-                Thread.sleep(speed*1000);
+                Thread.sleep(speed);
             } catch (InterruptedException ex) {
             }
             intervallCounter-=speed;
@@ -87,5 +87,14 @@ public class Lieferant implements Stoppable {
     @Override
     public void stop() {
         stop = true;
+    }
+    
+    /**
+     * isStopped Methode aus dem Stoppable Interface
+     * @return ob dieser Thread gestopped ist
+     */
+    @Override
+    public boolean isStopped() {
+        return stop;
     }
 }
