@@ -69,7 +69,7 @@ public class Lieferant implements Stoppable {
      * @return eine Liste mit LIST_SIZE (pseudo)zufälligen Integer Werten
      */
     public List<Integer> randomIntList() {
-        List<Integer> ar = new ArrayList<Integer>(LIST_SIZE);
+        List<Integer> ar = new ArrayList<>(LIST_SIZE);
         for (int i = 0; i < LIST_SIZE; i++) ar.add(rand.nextInt(MAX_NUMBER)+1);
         return ar;
     }
