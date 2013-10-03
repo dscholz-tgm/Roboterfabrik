@@ -21,7 +21,7 @@ import org.apache.log4j.Logger;
  * welcher sich um die Lagerung der Teile kümmert
  * 
  * @author Dominik
- * @version 0.9
+ * @version 0.10
  */
 public class LagerMitarbeiter {
     
@@ -140,7 +140,7 @@ public class LagerMitarbeiter {
     public void lagerThreadee(Threadee threadee) {
         BufferedWriter w;
         try {
-            w = new BufferedWriter(new FileWriter(threadeeFile));
+            w = new BufferedWriter(new FileWriter(threadeeFile,true));
             StringBuilder sb = new StringBuilder("Threadee-ID" + threadee.getID() + ",Mitarbeiter-ID" + threadee.getMitarbeiterID() + ",");
             for(Teil teil : threadee.getTeilListe()) {
                 sb.append(teil.getType().casename());
