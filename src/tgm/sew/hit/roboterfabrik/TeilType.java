@@ -5,13 +5,15 @@ package tgm.sew.hit.roboterfabrik;
  * Bestandteile des Threadees
  * 
  * @author Dominik
- * @version 0.4
+ * @version 0.5
  */
 public enum TeilType {
     AUGE(2),
     RUMPF(1),
     KETTENANTRIEB(1),
-    ARM(2);
+    ARM(2),
+    ANTENNE(1),
+    GREIFER(2);
     
     private int amount;
     
