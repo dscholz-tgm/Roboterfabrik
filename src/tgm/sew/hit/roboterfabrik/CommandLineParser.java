@@ -62,8 +62,8 @@ public class CommandLineParser {
                 logFolder = new File(args[3]);
                 
                 //if (lagerFolder.isDirectory() && logFolder.isDirectory()) return true;
-                lagerFolder.mkdir();
-                logFolder.mkdir();
+                lagerFolder.mkdirs();
+                logFolder.mkdirs();
                 return true;
             }
         }
